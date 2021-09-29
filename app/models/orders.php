@@ -2,8 +2,9 @@
 
 namespace App\models;
 
+use App\Connection;
 use PDO;
-use PDOStatement;
+
 
 class Orders
 {
@@ -11,7 +12,7 @@ class Orders
 
     public function __construct()
     {
-        $this->connection = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
+        $this->connection = (new Connection())->connect();
     }
 
     protected $id;
