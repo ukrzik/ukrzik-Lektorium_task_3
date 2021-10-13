@@ -24,9 +24,9 @@ DROP TABLE IF EXISTS `Customers`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Customers` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `firstName` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `lastName` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `firstName` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `lastName` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -82,7 +82,7 @@ CREATE TABLE `Orders` (
   `id` int NOT NULL AUTO_INCREMENT,
   `customerId` int NOT NULL,
   `dateOfSale` date NOT NULL,
-  `paymentMark` int DEFAULT NULL,
+  `paymentMark` tinyint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_Orders_1_idx` (`customerId`),
   CONSTRAINT `fk_Orders_1` FOREIGN KEY (`customerId`) REFERENCES `Customers` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -108,18 +108,18 @@ DROP TABLE IF EXISTS `Products`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Products` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `productName` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `manufacturer` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `productName` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `manufacturer` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `price` float NOT NULL,
-  `description` varchar(150) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `updatedDate` date NOT NULL,
-  `createdDate` date NOT NULL,
+  `description` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `updatedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `createdDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `quantity` int NOT NULL,
   `userId` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_Products_1_idx` (`userId`),
   CONSTRAINT `fk_Products_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +128,7 @@ CREATE TABLE `Products` (
 
 LOCK TABLES `Products` WRITE;
 /*!40000 ALTER TABLE `Products` DISABLE KEYS */;
-INSERT INTO `Products` VALUES (1,'table','RooT',15.8,'00000001','2020-05-21','2020-05-20',5,1),(2,'chair','BooT',5.8,'00000010','2021-05-20','2021-05-19',20,2),(3,'bench','Boot',8.8,'00000100','2015-04-20','2015-04-20',5,3),(4,'stool','SooT',7.8,'00001000','2016-03-20','2015-05-20',11,2);
+INSERT INTO `Products` VALUES (1,'table','RooT',15.8,'00000001','2020-05-20 21:00:00','2020-05-19 21:00:00',5,1),(2,'chair','BooT',5.8,'00000010','2021-05-19 21:00:00','2021-05-18 21:00:00',20,2),(3,'bench','Boot',8.8,'00000100','2015-04-19 21:00:00','2015-04-19 21:00:00',5,3),(4,'stool','SooT',7.8,'00001000','2016-03-19 22:00:00','2015-05-19 21:00:00',11,2),(5,'pen','SooT',0.5,'00010000','2021-10-13 17:07:38','2021-06-14 21:00:00',10,2);
 /*!40000 ALTER TABLE `Products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,4 +168,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-29 20:53:00
+-- Dump completed on 2021-10-13 20:16:15
